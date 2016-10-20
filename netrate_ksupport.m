@@ -1,4 +1,4 @@
-function [A_hat, total_obj, pr, mae] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes)
+function [A_hat, A, total_obj, pr, mae] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes)
 
 min_tol = 1e-4;
 
@@ -23,4 +23,6 @@ else
     
 end
 
-save(['solution-', network], 'A_hat', 'mae', 'pr', total_obj);
+mae
+pr
+%save(['solution-', network], 'A_hat', 'mae', 'pr', total_obj);

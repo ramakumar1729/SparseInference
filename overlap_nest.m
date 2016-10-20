@@ -14,7 +14,9 @@ alpha = x0;
 x = x0;
 d = length(x);
 prev_cost = inf;
-curr_cost = feval(f,x0,A_potential, A_bad, C, num_cascades,i) + gamma/2 * ( norm_overlap(x0,k) )^2;
+func_val = feval(f,x0,A_potential, A_bad, C, num_cascades,i);
+norm_val = ( norm_overlap(x0,k) )^2;
+curr_cost =  func_val + gamma/2 * norm_val;
 theta = 1;
 
 while (t < iters_acc && abs(prev_cost - curr_cost) > eps_acc)

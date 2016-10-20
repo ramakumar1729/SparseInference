@@ -1,1 +1,1 @@
-# NetworkDiffusionKSupport
+# SparseInference
