@@ -1,4 +1,4 @@
-function [grad_val] = calc_grad(a_hat, A_potential, A_bad, C, num_cascades, i)
+function [grad_val] = calc_grad(a_hat, A_potential, A_bad, C, num_cascades, i, use_l2)
 
     num_nodes = size(A_potential,1);
     t_hat = zeros(num_cascades(i), 1);
@@ -27,5 +27,9 @@ function [grad_val] = calc_grad(a_hat, A_potential, A_bad, C, num_cascades, i)
             end
             c_act = c_act + 1;
         end
+    end
+    
+    if use_l2 > 0
+       grad_val = grad_val + 2*use_l2*a_hat;
     end
 end

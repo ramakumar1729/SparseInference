@@ -1,14 +1,14 @@
-function [obj_val] = calc_obj(a_hat, A_potential, A_bad, C, num_cascades, i, use_l2, use_l1)
+function [grad_val] = calc_grad(a_hat, A_potential, A_bad, C, num_cascades, i, use_l2, use_l1)
 
     num_nodes = size(A_potential,1);
     t_hat = zeros(num_cascades(i), 1);
  
-    obj_val = 0;
+    grad_val = zeros(num_nodes, 1);
 
     % ADD SI1 and SI2 CONTRIBUTION
     for j=1:num_nodes
         if (A_potential(j,i) > 0)
-            obj_val = obj_val - a_hat(j) * (A_potential(j,i) + A_bad(j,i));
+            grad_val(j) = grad_val(j) - (A_potential(j,i) + A_bad(j,i));
         end
     end
     
@@ -22,16 +22,14 @@ function [obj_val] = calc_obj(a_hat, A_potential, A_bad, C, num_cascades, i, use
         
         if (~isempty(cidx) && cidx > 1)
             t_hat(c_act) = sum(a_hat(idx_ord(1:cidx-1)));
-            obj_val = obj_val + log(t_hat(c_act));
+            for j=1:cidx-1
+                grad_val(idx_ord(j)) = grad_val(idx_ord(j)) + (1.0/t_hat(c_act));
+            end
             c_act = c_act + 1;
         end
     end
     
     if use_l2 > 0
-       obj_val = obj_val +  use_l2 * (sum(a_hat(:).^2));
-    end
-    
-    if use_l1 > 0
-       obj_val = obj_val +use_l1 *  sum(abs(a_hat(:)));
+       grad_f = grad_f + 2*use_l2* 
     end
 end

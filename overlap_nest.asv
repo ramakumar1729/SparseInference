@@ -24,9 +24,12 @@ end
 
 theta = 1;
 
-costs = zeros(iters_acc,1);
+costs = zeros(iter_acc,1);
 
 while (t < iters_acc && abs(prev_cost - curr_cost) > eps_acc)
+  if prev_cost - curr_cost > 0
+      1
+  end
   gradalpha = feval(gradf,alpha,A_potential, A_bad, C, num_cascades, i, use_l2);
   prevx = x;
   if use_l1 == 0
@@ -35,12 +38,16 @@ while (t < iters_acc && abs(prev_cost - curr_cost) > eps_acc)
     rho = 1-theta+sqrt(1-theta);
     alpha = rho*x - (rho-1)*prevx;
   else
-    x = prox_l1(-1/L* gradalpha + alpha, use_l1);
-    alpha = x;
+    alpha = prox_l1(-1/L* gradalpha + alpha, use_l1);
   end
   t = t+1;
   prev_cost = curr_cost;
   curr_cost = feval(f,alpha,A_potential, A_bad, C, num_cascades, i, use_l2, use_l1) + gamma/2 * ( norm_overlap(alpha,k) )^2;
   costs(t-1) = curr_cost;
+  if length(costs) > 1
+     monkey = 0;
+  end
 end
+
+monkey=1;
 

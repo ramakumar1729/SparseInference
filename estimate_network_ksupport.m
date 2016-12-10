@@ -1,4 +1,4 @@
-function [A_hat, total_obj] = estimate_network_ksupport(A, C, num_nodes, horizon, type_diffusion),
+function [A_hat, total_obj] = estimate_network_ksupport(A, C, num_nodes, horizon, type_diffusion, use_l2, use_l1, L)
 
 num_cascades = zeros(1,num_nodes);
 A_potential = sparse(zeros(size(A)));
@@ -42,6 +42,9 @@ end
 for i=1:num_nodes,
     disp 'i:'
     i
+    if i == 38
+       0; 
+    end
     if (num_cascades(i)==0)
         A_hat(:,i) = 0;
         continue;
@@ -50,13 +53,14 @@ for i=1:num_nodes,
     % 
 
     gamma = 0.1;
-    L = 100;
+    % L = 100;
     k = num_nodes;
     iters_acc = 100;
     eps_acc = 1e-3;
 	x0 = 0.0001*ones(num_nodes,1);
     
-    [a_hat, obj] = overlap_nest(@calc_obj, @calc_grad, gamma, L, x0, k, iters_acc, eps_acc, A_potential, A_bad, C, num_cascades, i);
-    total_obj = total_obj + obj;
+    [a_hat, obj] = overlap_nest(@calc_obj, @calc_grad, gamma, L, x0, k, iters_acc, eps_acc, A_potential, A_bad, C, num_cascades, i, use_l2, use_l1);
+    % total_obj = total_obj + obj; % Sometimes, the procedure converges
+    % within 99 iterations
     A_hat(:,i) = a_hat;
 end

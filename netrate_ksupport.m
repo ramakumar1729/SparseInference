@@ -1,4 +1,4 @@
-function [A_hat, A, total_obj, pr, mae] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes)
+function [A_hat, A, total_obj, pr, mae] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes, use_l2, use_l1, L)
 
 min_tol = 1e-4;
 
@@ -11,7 +11,7 @@ disp 'Reading cascades...'
 C = create_cascades(cascades, num_nodes);
 
 disp 'Building data structures...'
-[A_hat, total_obj] = estimate_network_ksupport(A, C, num_nodes, horizon, type_diffusion);
+[A_hat, total_obj] = estimate_network_ksupport(A, C, num_nodes, horizon, type_diffusion, use_l2, use_l1, L);
 
 if exist(network),
     mae = mean(abs(A_hat(A~=0)-A(A~=0))./A(A~=0)); % mae
