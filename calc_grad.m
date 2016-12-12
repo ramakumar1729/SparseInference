@@ -14,7 +14,7 @@ function [grad_val] = calc_grad(a_hat, A_potential, A_bad, C, num_cascades, i, u
     
     % ADD SI3 CONTRIBUTION
     c_act = 1;
-    for c=1:10%size(C, 1)
+    for c=1:size(C, 1)
         idx = find(C(c,:)~=-1); % used nodes
         [val, ord] = sort(C(c, idx));
         idx_ord = idx(ord);

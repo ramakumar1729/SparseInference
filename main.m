@@ -6,4 +6,4 @@ type_diffusion = 'exp';
 num_nodes = 1024;
 L = 1;
 
-[A_hat, A, total_obj, pr, mae] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes, 0, 0.01, L)
+[A_hat, A, total_obj, pr, mae, mse] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes, 0, 0.01, L)

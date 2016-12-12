@@ -6,7 +6,7 @@ A_bad = sparse(zeros(size(A)));
 A_hat = sparse(zeros(size(A)));
 total_obj = 0;
 
-for c=1:10%size(C, 1),
+for c=1:size(C, 1),
     idx = find(C(c,:)~=-1); % used nodes
     [val, ord] = sort(C(c, idx));
     

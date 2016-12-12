@@ -1,4 +1,4 @@
-function [A_hat, A, total_obj, pr, mae] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes, use_l2, use_l1, L)
+function [A_hat, A, total_obj, pr, mae, mse] = netrate_ksupport(network, cascades, horizon, type_diffusion, num_nodes, use_l2, use_l1, L)
 
 min_tol = 1e-4;
 
@@ -16,10 +16,12 @@ disp 'Building data structures...'
 if exist(network),
     mae = mean(abs(A_hat(A~=0)-A(A~=0))./A(A~=0)); % mae
     pr(2) = sum(sum(A_hat>min_tol & A>min_tol))/sum(sum(A>min_tol)); % recall
-    pr(1) = sum(sum(A>min_tol))/sum(sum(A_hat>min_tol)); % precision
+    pr(1) = sum(sum(A_hat>min_tol & A>min_tol))/sum(sum(A_hat>min_tol)); % precision
+		mse = mean((A_hat-A)^.2);
 else
     mae = [];
     pr = [];
+		mse = [];
     
 end
 
