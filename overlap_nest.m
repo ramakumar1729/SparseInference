@@ -1,4 +1,4 @@
-function [x, costs] = overlap_nest(f, gradf, gamma, L, x0, k, iters_acc, eps_acc, A_potential, A_bad, C, num_cascades, i, use_l2, use_l1)
+function [x, curr_cost] = overlap_nest(f, gradf, gamma, L, x0, k, iters_acc, eps_acc, A_potential, A_bad, C, num_cascades, i, use_l2, use_l1)
 
 % Minimizes regularization functional 
 % f(w) + gamma/2 ||w||^2
