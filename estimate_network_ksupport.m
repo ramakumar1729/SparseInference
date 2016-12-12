@@ -42,9 +42,6 @@ end
 for i=1:num_nodes,
     disp 'i:'
     i
-    if i == 38
-       0; 
-    end
     if (num_cascades(i)==0)
         A_hat(:,i) = 0;
         continue;
@@ -53,8 +50,8 @@ for i=1:num_nodes,
     % 
 
     gamma = 0.1;
-    % L = 100;
-    k = num_nodes;
+     L = 10000;
+    k = 20;
     iters_acc = 100;
     eps_acc = 1e-3;
 	x0 = 0.0001*ones(num_nodes,1);
