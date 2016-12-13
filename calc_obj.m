@@ -28,10 +28,11 @@ function [obj_val] = calc_obj(a_hat, A_potential, A_bad, C, num_cascades, i, use
     end
     
     if use_l2 > 0
-       obj_val = obj_val +  use_l2 * (sum(a_hat(:).^2));
+       obj_val = obj_val -  use_l2 * (sum(a_hat(:).^2));
     end
     
     if use_l1 > 0
-       obj_val = obj_val +use_l1 *  sum(abs(a_hat(:)));
+       obj_val = obj_val - use_l1 *  sum(abs(a_hat(:)));
     end
+    obj_val = -obj_val;
 end

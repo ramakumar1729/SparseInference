@@ -30,6 +30,7 @@ function [grad_val] = calc_grad(a_hat, A_potential, A_bad, C, num_cascades, i, u
     end
     
     if use_l2 > 0
-       grad_val = grad_val + 2*use_l2*a_hat;
+       grad_val = grad_val - 2*use_l2*a_hat;
     end
+    grad_val = -grad_val;
 end
