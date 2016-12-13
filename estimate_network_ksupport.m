@@ -49,8 +49,8 @@ for i=1:num_nodes,
     
     % 
 
-    gamma = 0.1;
-    iters_acc = 100;
+    gamma = 2;
+    iters_acc = 10000;
     eps_acc = 1e-3;
 	x0 = 0.0001*ones(num_nodes,1);
     
